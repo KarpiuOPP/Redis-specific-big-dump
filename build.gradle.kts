@@ -20,7 +20,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web:3.0.5")
     annotationProcessor("org.projectlombok:lombok")
     implementation("redis.clients:jedis")
-    implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.apache.commons:commons-csv:1.10.0")
 
 }
 
