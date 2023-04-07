@@ -98,7 +98,7 @@ public class RedisOperationsController {
         printer.close();
         return ResponseEntity.ok().body("And it's gone");
     }
-
+asdasd
     private static String docodeBase64(byte[] it) {
         String encoder = Base64.getEncoder().encodeToString(it);
         return new String(Base64.getUrlDecoder().decode(encoder));
