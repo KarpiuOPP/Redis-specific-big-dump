@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration.JedisClientConfigurationBuilder;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.RedisSerializer;
-import redis.clients.jedis.Jedis;
 
 @Configuration
 public class RedisConfig {
@@ -19,13 +21,15 @@ public class RedisConfig {
     }
 
     @Bean
-    RedisConnectionFactory redisConnectionFactory() {
-        return new JedisConnectionFactory();
+    JedisClientConfiguration jedisClientConfiguration() {
+        JedisClientConfigurationBuilder builder = JedisClientConfiguration.builder();
+        return builder.build();
     }
 
     @Bean
-    Jedis jedis() {
-        return new Jedis("localhost", 6379);
+    RedisConnectionFactory redisConnectionFactory(JedisClientConfiguration jedisClientConfiguration) {
+        RedisStandaloneConfiguration configuration = new RedisStandaloneConfiguration("localhost", 6379);
+        return new JedisConnectionFactory(configuration, jedisClientConfiguration);
     }
 
     @Bean
